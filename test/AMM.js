@@ -10,7 +10,9 @@ const ether = tokens
 describe('AMM', () => {
   let accounts, 
       deployer,
-      liquidityProvider
+      liquidityProvider, 
+      investor1,
+      investor2
 
   let token1, 
       token2, 
@@ -21,7 +23,10 @@ describe('AMM', () => {
     accounts = await ethers.getSigners()
     deployer = accounts[0]
     liquidityProvider = accounts[1]
-    
+    investor1 = accounts[2]
+    investor2 = accounts[3]
+
+
     // Deploy Token
     const Token = await ethers.getContractFactory('Token')
     token1 = await Token.deploy('Dapp University', 'DAPP', '1000000') // 1 million tokens
@@ -33,6 +38,15 @@ describe('AMM', () => {
 
     transaction = await token2.connect(deployer).transfer(liquidityProvider.address, tokens(100000))
     await transaction.wait()
+
+    // Send tokens to investor1
+    transaction = await token1.connect(deployer).transfer(investor1.address, tokens(100000))
+    await transaction.wait()
+
+    // Send token2 to investor2
+    transaction = await token2.connect(deployer).transfer(investor2.address, tokens(100000))
+    await transaction.wait()
+
 
     // Deploy AMM
     const AMM = await ethers.getContractFactory('AMM')
