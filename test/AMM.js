@@ -101,8 +101,11 @@ describe('AMM', () => {
       transaction = await token2.connect(liquidityProvider).approve(amm.address, amount)
       await transaction.wait()
 
+      // Calculate token2 deposit amount
+      let token2Deposit = await amm.calculateToken2Deposit(amount)
+
       // LP adds liquidity
-      transaction = await amm.connect(liquidityProvider).addLiquidity(amount, amount)
+      transaction = await amm.connect(liquidityProvider).addLiquidity(amount, token2Deposit)
       await transaction.wait()
 
       // LP should have 50 shares
