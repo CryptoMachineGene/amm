@@ -103,7 +103,7 @@ contract AMM {
 
     } 
 
-    function SwapToken1(uint256 _token1Amount)
+    function swapToken1(uint256 _token1Amount)
         external
         returns(uint256 token2Amount)
     {        

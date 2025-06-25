@@ -72,7 +72,7 @@ describe('AMM', () => {
   describe('Swapping tokens', () => {
     
     it('facilitates swaps', async () => {
-      let amount, transactioin, result
+      let amount, transaction, result, estimate, balance
 
       // Deployer approves 100k tokens
       amount = tokens(100000)      
@@ -130,6 +130,33 @@ describe('AMM', () => {
 
       // Pool should have 150 shares
       expect(await amm.totalShares()).to.equal(tokens(150))
+
+
+      //////////////////////////////////////////////////////////////////
+      // Investor 1 Swaps
+      //    
+
+      // Investor1 approves all tokens
+      transaction = await token1.connect(investor1).approve(amm.address, tokens(100000))
+      await transaction.wait()
+
+      // Check investor1 balance before swap
+      balance = await token2.balanceOf(investor1.address)
+      console.log(`Investor1 Token2 balance before swap: ${ethers.utils.formatEther(balance)}\n`)
+
+      // Estimate amount of tokens investor1 will receive after swapping token1: include slippage
+      estimate = await amm.calculateToken1Swap(tokens(1))
+      console.log(`Token2 amount investor1 will receive after swap: ${ethers.utils.formatEther(estimate)}\n`)
+
+      // Investor1 swaps 1 token1
+      transaction = await amm.connect(investor1).swapToken1(tokens(1))
+      result = await transaction.wait()
+
+
+      // Check invvestor1 balance after swap
+      balance = await token2.balanceOf(investor1.address)
+      console.log(`Investor1 Token2 balance after swap: ${ethers.utils.formatEther(balance)}\n`)
+      expect(estimate).to.equal(balance)
 
     })
     
