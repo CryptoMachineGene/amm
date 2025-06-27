@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 import "./Token.sol";
 
-// [ ] Manage Pool
-// [ ] Manage Deposits
-// [ ] Facilitate Swaps (i.e. Trades)
+// [x] Manage Pool
+// [x] Manage Deposits
+// [-] Facilitate Swaps (i.e. Trades)
 // [ ] Mange Withdraws
 
 contract AMM {
@@ -111,7 +111,6 @@ contract AMM {
         }
 
         require(token2Amount < token2Balance, "swap cannot exceed pool balance");
-
     } 
 
     function swapToken1(uint256 _token1Amount)
@@ -142,7 +141,55 @@ contract AMM {
             token2Balance,
             block.timestamp
         );
+    }
 
+    // Returns amount of token1 received when swapping token2
+    function calculateToken2Swap(uint256 _token2Amount)
+        public
+        view
+        returns(uint256 token1Amount)
+    {
+        uint256 token2After = token2Balance +_token2Amount;
+        uint256 token1After = K / token2After;
+        token1Amount = token1Balance - token1After;
+
+        // Don't let pool go to 0
+        if(token1Amount == token1Balance){
+            token1Amount--;
+        }
+
+        require(token1Amount < token1Balance, "swap cannot exceed pool balance");
+    } 
+
+
+    function swapToken2(uint256 _token2Amount)
+        external
+        returns(uint256 token1Amount)
+    {        
+        // Calculate Token 1 Amount
+        token1Amount = calculateToken2Swap(_token2Amount);
+
+        // Do Swap
+        // 1. Transfer token2 tokens out of wallet
+        token2.transferFrom(msg.sender, address(this), _token2Amount);
+        // 2. Update the token1 balance in the contract
+        token2Balance+= _token2Amount;
+        // 3. Update the token1 balance in the contract
+        token1Balance-= token1Amount;
+        // 4. Transfer token1 tokens from contract to user wallet
+        token1.transfer(msg.sender, token1Amount);
+
+        // Emit and event
+        emit Swap(
+            msg.sender,
+            address(token2),
+            _token2Amount,
+            address(token1),
+            token1Amount,
+            token2Balance,
+            token1Balance,
+            block.timestamp
+        );
 
     }
 
