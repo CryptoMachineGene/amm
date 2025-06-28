@@ -299,6 +299,23 @@ describe('AMM', () => {
       transaction = await amm.connect(liquidityProvider).removeLiquidity(shares(50)) // 50 shares
       await transaction.wait()
 
+      // Check LP balance after removing funds
+      balance = await token1.balanceOf(liquidityProvider.address)
+      console.log(`Liquidity Provider Token1 balance after removing fund: ${ethers.utils.formatEther(balance)} \n`)
+
+      balance = await token2.balanceOf(liquidityProvider.address)
+      console.log(`Liquidity Provider Token2 balance after removing fund: ${ethers.utils.formatEther(balance)} \n`)
+
+      // LP should have 0 shares
+      expect(await amm.shares(liquidityProvider.address)).to.equal(0)
+
+      // Deployer should have 100 shares
+      expect(await amm.shares(deployer.address)).to.equal(shares(100))
+
+      // AMM Pool has 100 shares
+      expect(await amm.totalShares()).to.equal(shares(100))
+      
+
     })
     
   })
