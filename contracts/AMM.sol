@@ -6,7 +6,7 @@ import "./Token.sol";
 
 // [x] Manage Pool
 // [x] Manage Deposits
-// [-] Facilitate Swaps (i.e. Trades)
+// [x] Facilitate Swaps (i.e. Trades)
 // [ ] Mange Withdraws
 
 contract AMM {
@@ -48,8 +48,7 @@ contract AMM {
             token2.transferFrom(msg.sender, address(this), _token2Amount),
             "failed to transfer token 2"
         );
-            
-        
+
         // Issue Shares
         uint256 share;       
         
@@ -75,7 +74,6 @@ contract AMM {
         totalShares += share;
         shares[msg.sender] += share;
     }
-
 
     // Determine how many token2 tokens must be deposited when depositing liquidity for token1
     function calculateToken2Deposit(uint256 _token1Amount) 
@@ -173,9 +171,9 @@ contract AMM {
         // 1. Transfer token2 tokens out of wallet
         token2.transferFrom(msg.sender, address(this), _token2Amount);
         // 2. Update the token1 balance in the contract
-        token2Balance+= _token2Amount;
+        token2Balance += _token2Amount;
         // 3. Update the token1 balance in the contract
-        token1Balance-= token1Amount;
+        token1Balance -= token1Amount;
         // 4. Transfer token1 tokens from contract to user wallet
         token1.transfer(msg.sender, token1Amount);
 
@@ -190,7 +188,38 @@ contract AMM {
             token1Balance,
             block.timestamp
         );
+    }
 
+    // Determine how many tokens will be withdrawn
+    function calculateWithdrawalAmount(uint256 _share)
+        public
+        view
+        returns(uint256 token1Amount, uint256 token2Amount)
+    {
+        require(_share <= totalShares, "must be less than total shares");
+        token1Amount = (_share * token1Balance) / totalShares;
+        token2Amount = (_share * token2Balance) / totalShares;
+    }
+        
+    // Removes liquidity from the pool
+    function removeLiquidity(uint256 _share) 
+    external
+    returns(uint256 token1Amount, uint256 token2Amount)
+    {
+        require(_share <= shares[msg.sender], 
+            "cannot withdraw more shares than you have"
+        );
+        (token1Amount, token2Amount) = calculateWithdrawalAmount(_share); 
+
+        shares[msg.sender] -= _share;
+        totalShares -= _share;
+
+        token1Balance -= token1Amount;
+        token2Balance -= token2Amount;
+        K = token1Balance * token2Balance;
+
+        token1.transfer(msg.sender, token1Amount);
+        token2.transfer(msg.sender, token2Amount);
     }
 
 }

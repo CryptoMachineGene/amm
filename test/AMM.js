@@ -281,7 +281,23 @@ describe('AMM', () => {
       // Check price after swapping
       console.log(`Price: ${await amm.token2Balance() / await amm.token1Balance()} \n`)
 
+      //////////////////////////////////////////////////////////////////
+      // Removing Liquidity 
+      //
 
+      console.log(`AMM Token1 Balance: ${ethers.utils.formatEther(await amm.token1Balance())} \n`)
+      console.log(`AMM Token2 Balance: ${ethers.utils.formatEther(await amm.token2Balance())} \n`)
+      
+      // Check LP balance before removing tokens
+      balance = await token1.balanceOf(liquidityProvider.address)
+      console.log(`Liquidity Provider Token1 balance before removing funds: ${ethers.utils.formatEther(balance)} \n`)
+
+      balance = await token2.balanceOf(liquidityProvider.address)
+      console.log(`Liquidity Provider Token2 balance before removing funds: ${ethers.utils.formatEther(balance)} \n`)
+
+      // LP removes tokens from AMM pool
+      transaction = await amm.connect(liquidityProvider).removeLiquidity(shares(50)) // 50 shares
+      await transaction.wait()
 
     })
     
