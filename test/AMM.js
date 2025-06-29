@@ -170,7 +170,7 @@ describe('AMM', () => {
 
       // Check investor1 balance after swap
       balance = await token2.balanceOf(investor1.address)
-      console.log(`Investor1 Token2 balance after swap: ${ethers.utils.formatEther(balance)}\n`)
+      console.log(`Investor1 Token2 balance after swap: ${ethers.utils.formatEther(balance)} \n`)
       expect(estimate).to.equal(balance)
 
       // Check AMM token balances are in sync
@@ -245,7 +245,7 @@ describe('AMM', () => {
       await transaction.wait()
 
       // Check Investor2 balance before swap
-      balance= await token1.balanceOf(investor2.address)
+      balance = await token1.balanceOf(investor2.address)
       console.log(`Investor1 Token2 balance before swap: ${ethers.utils.formatEther(balance)}`)
       
       // Estimate amount of tokens investor2 will receive after swapping token2: includes slippage
@@ -314,7 +314,7 @@ describe('AMM', () => {
 
       // AMM Pool has 100 shares
       expect(await amm.totalShares()).to.equal(shares(100))
-      
+
 
     })
     
