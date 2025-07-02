@@ -15,8 +15,8 @@ const ether = tokens
 const shares = ether
 
 async function main() {
-  
-  // Fetch account
+
+  // Fetch accounts
   console.log(`Fetching accounts & network \n`)
   const accounts = await ethers.getSigners()
   const deployer = accounts[0]
@@ -28,18 +28,18 @@ async function main() {
   // Fetch Network
   const { chainId } = await ethers.provider.getNetwork()
 
-  console.log(`Fetching token and transferring to accounts... \n`)
+  console.log(`Fetching token and transferring to accounts...\n`)
 
   // Fetch Dapp Token
   const dapp = await ethers.getContractAt('Token', config[chainId].dapp.address)
-  console.log(`Dapp Token fetched: ${dapp.address} \n`)
+  console.log(`Dapp Token fetched: ${dapp.address}\n`)
 
   // Fetch USD Token
   const usd = await ethers.getContractAt('Token', config[chainId].usd.address)
-  console.log(`USD Token fetched: ${usd.address} \n`)
+  console.log(`USD Token fetched: ${usd.address}\n`)
 
 
-  ///////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
   // Distribute Tokens to Investors
   //
 
@@ -60,19 +60,19 @@ async function main() {
   // Send usd tokens to investor 4
   transaction = await usd.connect(deployer).transfer(investor4.address, tokens(10))
   await transaction.wait()
-  
 
-  ///////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////
   // Adding Liquidity
   //
 
   let amount = tokens(100)
 
-  console.log(`Fetching AMM... \n`)
+  console.log(`Fetching AMM...\n`)
 
   // Fetch AMM
   const amm = await ethers.getContractAt('AMM', config[chainId].amm.address)
-  console.log(`AMM fetched: ${amm.address} \n`)
+  console.log(`AMM fetched: ${amm.address}\n`)
 
   transaction = await dapp.connect(deployer).approve(amm.address, amount)
   await transaction.wait()
@@ -80,16 +80,16 @@ async function main() {
   transaction = await usd.connect(deployer).approve(amm.address, amount)
   await transaction.wait()
 
-  // Deployer add liquidity
-  console.log(`Adding liquidity... \n`)
+  // Deployer adds liquidity
+  console.log(`Adding liquidity...\n`)
   transaction = await amm.connect(deployer).addLiquidity(amount, amount)
   await transaction.wait()
 
-  ///////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
   // Investor 1 Swaps: Dapp --> USD
   //
 
-  console.log(`Investor 1 Swaps... \n`)
+  console.log(`Investor 1 Swaps...\n`)
 
   // Investor approves all tokens
   transaction = await dapp.connect(investor1).approve(amm.address, tokens(10))
@@ -99,49 +99,49 @@ async function main() {
   transaction = await amm.connect(investor1).swapToken1(tokens(1))
   await transaction.wait()
 
-  ///////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
   // Investor 2 Swaps: USD --> Dapp
   //
 
-  console.log(`Investor 2 Swaps... \n`)
-
-  // Investor approves all tokens
-  transaction = await dapp.connect(investor2).approve(amm.address, tokens(10))
+  console.log(`Investor 2 Swaps...\n`)
+  // Investor approves all tokens tokens
+  transaction = await usd.connect(investor2).approve(amm.address, tokens(10))
   await transaction.wait()
 
   // Investor swaps 1 token
   transaction = await amm.connect(investor2).swapToken2(tokens(1))
   await transaction.wait()
 
-  ///////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////
   // Investor 3 Swaps: Dapp --> USD
   //
 
-  console.log(`Investor 3 Swaps... \n`)
+  console.log(`Investor 3 Swaps...\n`)
 
   // Investor approves all tokens
   transaction = await dapp.connect(investor3).approve(amm.address, tokens(10))
   await transaction.wait()
 
-  // Investor swaps all 10 tokens
+  // Investor swaps all 10 token
   transaction = await amm.connect(investor3).swapToken1(tokens(10))
   await transaction.wait()
 
-  ///////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
   // Investor 4 Swaps: USD --> Dapp
   //
 
-  console.log(`Investor 4 Swaps... \n`)
+  console.log(`Investor 4 Swaps...\n`)
 
   // Investor approves all tokens
-  transaction = await dapp.connect(investor4).approve(amm.address, tokens(10))
+  transaction = await usd.connect(investor4).approve(amm.address, tokens(10))
   await transaction.wait()
 
-  // Investor swaps 5 tokens
+  // Investor swaps all 10 tokens
   transaction = await amm.connect(investor4).swapToken2(tokens(5))
   await transaction.wait()
 
-  console.log(`Finished. \n`)
+  console.log(`Finished.\n`)
 
 }
 
