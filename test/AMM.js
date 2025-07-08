@@ -98,7 +98,6 @@ describe('AMM', () => {
       expect(await amm.totalShares()).to.equal(tokens(100))
 
 
-
       /////////////////////////////////////////////////////////////
       // LP adds more liquidity
       //
@@ -204,6 +203,7 @@ describe('AMM', () => {
       // Check price after swapping
       console.log(`Price: ${await amm.token2Balance() / await amm.token1Balance()} \n`)
 
+
       /////////////////////////////////////////////////////////////
       // Investor 1 Swaps a large amount
       //
@@ -230,6 +230,7 @@ describe('AMM', () => {
 
       // Check price after swapping
       console.log(`Price: ${await amm.token2Balance() / await amm.token1Balance()} \n`)
+
 
       /////////////////////////////////////////////////////////////
       // Investor 2 Swaps
@@ -269,6 +270,7 @@ describe('AMM', () => {
       console.log(`Investor2 Token1 balance after swap: ${ethers.utils.formatEther(balance)} \n`)
       expect(estimate).to.equal(balance)
 
+
       /////////////////////////////////////////////////////////////
       // Removing Liquidity
       //
@@ -304,7 +306,5 @@ describe('AMM', () => {
       expect(await amm.totalShares()).to.equal(shares(100))
 
     })
-
   })
-
 })

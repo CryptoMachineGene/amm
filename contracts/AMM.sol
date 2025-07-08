@@ -7,7 +7,7 @@ import "./Token.sol";
 // [x] Manage Pool
 // [x] Manage Deposits
 // [x] Facilitate Swaps (i.e. Trades)
-// [ ] Mange Withdraws
+// [x] Manage Withdraws
 
 contract AMM {
     Token public token1;
@@ -121,10 +121,13 @@ contract AMM {
         // Do Swap
         // 1. Transfer token1 tokens out of wallet
         token1.transferFrom(msg.sender, address(this), _token1Amount);
+
         // 2. Update the token1 balance in the contract
         token1Balance+= _token1Amount;
+
         // 3. Update the token2 balance in the contract
         token2Balance-= token2Amount;
+
         // 4. Transfer token2 tokens from contract to user wallet
         token2.transfer(msg.sender, token2Amount);
 
@@ -169,15 +172,19 @@ contract AMM {
 
         // Do Swap
         // 1. Transfer token2 tokens out of wallet
+
         token2.transferFrom(msg.sender, address(this), _token2Amount);
+
         // 2. Update the token1 balance in the contract
         token2Balance += _token2Amount;
+
         // 3. Update the token1 balance in the contract
         token1Balance -= token1Amount;
+
         // 4. Transfer token1 tokens from contract to user wallet
         token1.transfer(msg.sender, token1Amount);
 
-        // Emit and event
+        // Emit an event
         emit Swap(
             msg.sender,
             address(token2),
