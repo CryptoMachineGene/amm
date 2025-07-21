@@ -1,12 +1,22 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import Blockies from 'react-blockies';
 
 import logo from '../logo.png';
 
+import { loadAccount, loadBalances } from '../store/interactions'
+
 const Navigation = () => {
   const account = useSelector(state => state.provider.account)
+  const tokens = useSelector(state => state.tokens.contracts)
 
+  const dispatch = useDispatch()
+
+const connectHandler = async () => {
+  const account = await loadAccount(dispatch)
+  await loadBalances(tokens, account, dispatch)
+}
 
   return (
     <Navbar className='my-3'>
@@ -33,7 +43,7 @@ const Navigation = () => {
           />
         </Navbar.Text>
         ) : (
-          <></>
+          <Button onClick={connectHandler}>Connect</Button>
         )} 
         
       </Navbar.Collapse>
