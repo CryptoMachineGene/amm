@@ -40,7 +40,6 @@ const Navigation = () => {
         className="d-inline-block align-top mx-3"
       />
       <Navbar.Brand href="#">Dapp University AMM</Navbar.Brand>
-
       <Navbar.Toggle aria-controls="nav" />
       <Navbar.Collapse id="nav" className="justify-content-end">
 
@@ -54,7 +53,7 @@ const Navigation = () => {
           >
             <option value="0" disabled>Select Network</option>
             <option value="0x7A69">Localhost</option>
-            <option value="0X5">Goerli</option>
+            <option value="0x5">Goerli</option>
           </Form.Select>
 
           {account ? (
