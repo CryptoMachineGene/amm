@@ -8,6 +8,18 @@
     },
     "amm": {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
-    } 
+    }
+  },
+
+  "11155111": {
+    "dapp": {
+      "address": "0xd258aDD90946891a3BFd4386Ac7fd372360Ab1cD"
+    },
+    "usd": {
+      "address": "0xcc5ab39e2ac3323075a6050e62AE997FfC78E03C"
+    },
+    "amm": {
+      "address": "0xbc0850012bf8e067e334a3C5C0698B3C5b241969"
+    }     
   }
 }
