@@ -34,6 +34,7 @@ This is a full-stack educational project that demonstrates how to build a basic 
 
 ## 🗂️ File Structure
 
+``` plaintext
 amm-tutorial/
 ├── contracts/
 │ ├── Token.sol
@@ -63,6 +64,7 @@ amm-tutorial/
 │ │ │ └── Charts.jsx
 ├── hardhat.config.js
 └── README.md
+```
 
 ---
 
