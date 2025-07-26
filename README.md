@@ -32,5 +32,35 @@ This is a full-stack educational project that demonstrates how to build a basic 
 
 ---
 
+amm-tutorial/
+├── contracts/
+│ ├── Token.sol
+│ └── AMM.sol
+├── test/
+│ └── AMM.test.js
+├── scripts/
+│ ├── deploy.js
+│ └── seed.js
+├── frontend/
+│ ├── src/
+│ │ ├── App.js
+│ │ ├── config.json
+│ │ ├── logo.png
+│ │ ├── store/
+│ │ │ ├── interactions.js
+│ │ │ └── reducers/
+│ │ │ ├── provider.js
+│ │ │ ├── tokens.js
+│ │ │ └── amm.js
+│ │ ├── components/
+│ │ │ ├── Navigation.jsx
+│ │ │ ├── Tabs.jsx
+│ │ │ ├── Swap.jsx
+│ │ │ ├── Deposit.jsx
+│ │ │ ├── Withdraw.jsx
+│ │ │ └── Charts.jsx
+├── hardhat.config.js
+└── README.md
+
 ## 🗂️ File Structure
 
