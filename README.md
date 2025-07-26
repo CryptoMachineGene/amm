@@ -151,8 +151,10 @@ The core logic for token swaps and LP share accounting.
 | `shares(address)`                    | Returns LP shares for a user                |
 | `totalShares()`                      | Total LP shares in existence                |
 
-Event
-Swap — Emitted after each token swap with full metadata.
+### Event
+
+- **Swap** — Emitted after each token swap with full metadata.
+
 
 
 ## License
