@@ -111,12 +111,10 @@ npm start
 ## Redux State Management
 - provider
   - connection, chainId, account
-
-tokens
-contracts, symbols, balances
-
-amm
-contract, shares, swaps (optional)
+- tokens
+  - contracts, symbols, balances
+- amm
+  - contract, shares, swaps (optional)
 
 All state is synced through store/interactions.js.
 
