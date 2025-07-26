@@ -64,7 +64,6 @@ amm-tutorial/
 
 ## 🗂️ File Structure
 
-
 ---
 
 ## ⚙️ Getting Started
@@ -121,6 +120,44 @@ contract, shares, swaps (optional)
 
 All state is synced through store/interactions.js.
 
+Smart Contract ABIs
+Contracts are loaded dynamically using config.json per chain:
+```json
+{
+  "31337": {
+    "dapp": { "address": "0x..." },
+    "usd":  { "address": "0x..." },
+    "amm":  { "address": "0x..." }
+  },
+  "11155111": {
+    "dapp": { "address": "0x..." },
+    "usd":  { "address": "0x..." },
+    "amm":  { "address": "0x..." }
+  }
+}
+```
+
+AMM Smart Contract
+The core logic for token swaps and LP share accounting.
+
+Key Functions
+Function	Description
+addLiquidity()	Deposit both tokens to earn LP shares
+removeLiquidity()	Redeem LP shares for tokens
+swapToken1() / swapToken2()	Perform token swaps
+calculateToken1Swap() / calculateToken2Swap()	Estimate swap output
+calculateToken1Deposit() / calculateToken2Deposit()	Maintain deposit ratio
+shares(address)	Returns LP shares for a user
+totalShares()	Total LP shares in existence
+
+Event
+Swap: Emitted after each token swap with full metadata.
+
+License
+MIT — use freely, fork, or build on top.
+
+🙏 Acknowledgments
+Based on tutorials from Dapp University, with added full-stack integration and improvements.
 
 
 
