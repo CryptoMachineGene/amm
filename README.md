@@ -156,7 +156,9 @@ Swap: Emitted after each token swap with full metadata.
 ## License
 MIT — use freely, fork, or build on top.
 
-🙏 Acknowledgments
+--
+
+🙏 Acknowledgments:
 Based on tutorials from Dapp University, with added full-stack integration and improvements.
 
 
