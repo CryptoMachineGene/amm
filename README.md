@@ -140,18 +140,21 @@ Contracts are loaded dynamically using config.json per chain:
 ## AMM Smart Contract
 The core logic for token swaps and LP share accounting.
 
-Key Functions
-Function	Description
-addLiquidity()	Deposit both tokens to earn LP shares
-removeLiquidity()	Redeem LP shares for tokens
-swapToken1() / swapToken2()	Perform token swaps
-calculateToken1Swap() / calculateToken2Swap()	Estimate swap output
-calculateToken1Deposit() / calculateToken2Deposit()	Maintain deposit ratio
-shares(address)	Returns LP shares for a user
-totalShares()	Total LP shares in existence
+### Key Functions
+
+| Function                             | Description                                 |
+|--------------------------------------|---------------------------------------------|
+| `addLiquidity()`                     | Deposit both tokens to earn LP shares       |
+| `removeLiquidity()`                  | Redeem LP shares for tokens                 |
+| `swapToken1()` / `swapToken2()`      | Perform token swaps                         |
+| `calculateToken1Swap()` / `...Swap()`| Estimate swap output                        |
+| `calculateToken1Deposit()` / `...()` | Maintain deposit ratio                      |
+| `shares(address)`                    | Returns LP shares for a user                |
+| `totalShares()`                      | Total LP shares in existence                |
 
 Event
 Swap: Emitted after each token swap with full metadata.
+
 
 ## License
 MIT — use freely, fork, or build on top.
