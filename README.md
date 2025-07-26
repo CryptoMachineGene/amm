@@ -37,35 +37,34 @@ This is a full-stack educational project that demonstrates how to build a basic 
 ``` plaintext
 amm-tutorial/
 ├── contracts/
-│ ├── Token.sol
-│ └── AMM.sol
+│   ├── Token.sol
+│   └── AMM.sol
 ├── test/
-│ └── AMM.test.js
+│   └── AMM.test.js
 ├── scripts/
-│ ├── deploy.js
-│ └── seed.js
+│   ├── deploy.js
+│   └── seed.js
 ├── frontend/
-│ ├── src/
-│ │ ├── App.js
-│ │ ├── config.json
-│ │ ├── logo.png
-│ │ ├── store/
-│ │ │ ├── interactions.js
-│ │ │ └── reducers/
-│ │ │ ├── provider.js
-│ │ │ ├── tokens.js
-│ │ │ └── amm.js
-│ │ ├── components/
-│ │ │ ├── Navigation.jsx
-│ │ │ ├── Tabs.jsx
-│ │ │ ├── Swap.jsx
-│ │ │ ├── Deposit.jsx
-│ │ │ ├── Withdraw.jsx
-│ │ │ └── Charts.jsx
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── config.json
+│   │   ├── logo.png
+│   │   ├── store/
+│   │   │   ├── interactions.js
+│   │   │   └── reducers/
+│   │   │       ├── provider.js
+│   │   │       ├── tokens.js
+│   │   │       └── amm.js
+│   │   ├── components/
+│   │   │   ├── Navigation.jsx
+│   │   │   ├── Tabs.jsx
+│   │   │   ├── Swap.jsx
+│   │   │   ├── Deposit.jsx
+│   │   │   ├── Withdraw.jsx
+│   │   │   └── Charts.jsx
 ├── hardhat.config.js
 └── README.md
 ```
-
 ---
 
 ## Getting Started
@@ -153,7 +152,7 @@ The core logic for token swaps and LP share accounting.
 | `totalShares()`                      | Total LP shares in existence                |
 
 Event
-Swap: Emitted after each token swap with full metadata.
+Swap — Emitted after each token swap with full metadata.
 
 
 ## License
