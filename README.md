@@ -32,6 +32,8 @@ This is a full-stack educational project that demonstrates how to build a basic 
 
 ---
 
+## 🗂️ File Structure
+
 amm-tutorial/
 ├── contracts/
 │ ├── Token.sol
@@ -61,8 +63,6 @@ amm-tutorial/
 │ │ │ └── Charts.jsx
 ├── hardhat.config.js
 └── README.md
-
-## 🗂️ File Structure
 
 ---
 
@@ -108,9 +108,9 @@ npm install
 npm start
 ```
 
-Redux State Management
-provider
-connection, chainId, account
+## Redux State Management
+-- provider
+  -- connection, chainId, account
 
 tokens
 contracts, symbols, balances
@@ -120,7 +120,7 @@ contract, shares, swaps (optional)
 
 All state is synced through store/interactions.js.
 
-Smart Contract ABIs
+## Smart Contract ABIs
 Contracts are loaded dynamically using config.json per chain:
 ```json
 {
@@ -137,7 +137,7 @@ Contracts are loaded dynamically using config.json per chain:
 }
 ```
 
-AMM Smart Contract
+## AMM Smart Contract
 The core logic for token swaps and LP share accounting.
 
 Key Functions
@@ -153,7 +153,7 @@ totalShares()	Total LP shares in existence
 Event
 Swap: Emitted after each token swap with full metadata.
 
-License
+## License
 MIT — use freely, fork, or build on top.
 
 🙏 Acknowledgments
