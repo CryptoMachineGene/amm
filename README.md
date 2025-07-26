@@ -1,5 +1,12 @@
 # AMM Tutorial — Full-Stack DEX with Solidity, Hardhat, and React
 
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Hardhat](https://img.shields.io/badge/Framework-Hardhat-yellow)
+![Solidity](https://img.shields.io/badge/Language-Solidity-blue)
+![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react)
+![Redux](https://img.shields.io/badge/State-Redux-purple?logo=redux)
+
+
 This is a full-stack educational project that demonstrates how to build a basic **Automated Market Maker (AMM)** like Uniswap v1. You'll learn how to create a token swap DApp using Solidity, Hardhat, Ethers.js, React, Redux Toolkit, and MetaMask.
 
 ---
