@@ -64,3 +64,63 @@ amm-tutorial/
 
 ## 🗂️ File Structure
 
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Clone the Repo
+```bash
+git clone https://github.com/your-username/amm-tutorial.git
+cd amm-tutorial
+```
+### 2. Install Backend Dependencies
+```bash
+npm install
+npx hardhat compile
+```
+
+### 3.  Run Unit Tests
+```bash
+npx hardhat test
+```
+
+### 4. Start Local Blockchain
+```bash
+npx hardhat node
+```
+
+### 5. Deploy Contracts
+```bash
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+### 6. Seed the AMM Pool
+This populates the pool and simulates some swaps.
+```bash
+npx hardhat run scripts/seed.js --network localhost
+```
+Investor accounts will receive DAPP and USD tokens and perform swaps automatically.
+
+### 7. Launch the Frontend
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Redux State Management
+provider
+connection, chainId, account
+
+tokens
+contracts, symbols, balances
+
+amm
+contract, shares, swaps (optional)
+
+All state is synced through store/interactions.js.
+
+
+
+
