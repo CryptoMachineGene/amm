@@ -109,8 +109,8 @@ npm start
 ```
 
 ## Redux State Management
--- provider
-  -- connection, chainId, account
+- provider
+  - connection, chainId, account
 
 tokens
 contracts, symbols, balances
