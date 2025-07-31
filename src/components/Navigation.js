@@ -26,9 +26,8 @@ const Navigation = () => {
   const networkHandler = async (e) => {
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: e.target.value }],      
+      params: [{ chainId: e.target.value }],
     })
-    console.log("chainID", chainId);
   }
 
   return (
@@ -41,6 +40,7 @@ const Navigation = () => {
         className="d-inline-block align-top mx-3"
       />
       <Navbar.Brand href="#">Dapp University AMM</Navbar.Brand>
+
       <Navbar.Toggle aria-controls="nav" />
       <Navbar.Collapse id="nav" className="justify-content-end">
 
@@ -53,8 +53,8 @@ const Navigation = () => {
             style={{ maxWidth: '200px', marginRight: '20px' }}
           >
             <option value="0" disabled>Select Network</option>
-            <option value="0x7a69">Localhost</option>
-            <option value="0xAA36A7">Sepolia</option>
+            <option value="0x7A69">Localhost</option>
+            <option value="0x5">Goerli</option>
           </Form.Select>
 
           {account ? (

@@ -49,6 +49,9 @@ async function main() {
   transaction = await dapp.connect(deployer).transfer(investor1.address, tokens(10))
   await transaction.wait()
 
+  //const amm = await ethers.getContractAt('Token', config[chainId].amm.address)
+  //console.log(`AMM contract deployed to: ${amm.address}\n`)
+
   // Send usd tokens to investor 2
   transaction = await usd.connect(deployer).transfer(investor2.address, tokens(10))
   await transaction.wait()

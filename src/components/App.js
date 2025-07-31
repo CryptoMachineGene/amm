@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import { ethers } from 'ethers'
@@ -12,8 +12,8 @@ import Deposit from './Deposit';
 import Withdraw from './Withdraw';
 import Charts from './Charts';
 
-import { 
-  loadProvider, 
+import {
+  loadProvider,
   loadNetwork,
   loadAccount,
   loadTokens,
@@ -21,14 +21,14 @@ import {
 } from '../store/interactions'
 
 function App() {
-  
+
   const dispatch = useDispatch()
 
   const loadBlockchainData = async () => {
     // Initiate provider
     const provider = await loadProvider(dispatch)
 
-    // Fetch current network's chainId (e.g. hardhat: 31337, kovan: 42) 
+    // Fetch current network's chainId (e.g. hardhat: 31337, kovan: 42)
     const chainId = await loadNetwork(provider, dispatch)
 
     // Reload page when network changes
@@ -40,41 +40,33 @@ function App() {
     window.ethereum.on('accountsChanged', async () => {
       await loadAccount(dispatch)
     })
-    
+
     // Initiate contracts
     await loadTokens(provider, chainId, dispatch)
     await loadAMM(provider, chainId, dispatch)
   }
 
-  useEffect(() => {    
-      loadBlockchainData()    
+  useEffect(() => {
+    loadBlockchainData()
   }, []);
 
   return(
     <Container>
-        <HashRouter>
-          
+      <HashRouter>
 
-          <Navigation />
+        <Navigation />
 
-          <hr />
+        <hr />
 
-          <Tabs />
+        <Tabs />
 
-          <Routes>
-            <Route exact path="/swap" element={<Swap />} />
-            <Route path="/deposit" element={<Deposit />} />
-            <Route path="/withdraw" element={<Withdraw />} />
-            <Route path="/charts" element={<Charts />} />
-
-          </Routes>
-
-        </HashRouter>
-
-
-
-     
-            
+        <Routes>
+          <Route exact path="/" element={<Swap />} />
+          <Route path="/deposit" element={<Deposit />} />
+          <Route path="/withdraw" element={<Withdraw />} />
+          <Route path="/charts" element={<Charts />} />
+        </Routes>
+      </HashRouter>
     </Container>
   )
 }
