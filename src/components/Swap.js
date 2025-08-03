@@ -14,7 +14,7 @@ import Alert from './Alert'
 
 import {
   swap,
-  loadBalances
+  loadBalances  
 } from '../store/interactions'
 
 const Swap = () => {
@@ -96,7 +96,6 @@ const Swap = () => {
     await getPrice()
 
     setShowAlert(true)
-
   }
 
   const getPrice = async () => {

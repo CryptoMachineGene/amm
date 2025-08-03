@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
@@ -12,9 +10,15 @@ import { ethers } from 'ethers'
 
 import Alert from './Alert'
 
+import {
+  addLiquidity,
+  loadBalances  
+} from '../store/interactions'
+
 const Deposit = () => {
     const [token1Amount, setToken1Amount] = useState(0)
     const [token2Amount, setToken2Amount] = useState(0)
+    const [showAlert, setShowAlert] = useState(false)
 
     const provider = useSelector(state => state.provider.connection)
     const account = useSelector(state => state.provider.account)
@@ -24,6 +28,11 @@ const Deposit = () => {
     const balances = useSelector(state => state.tokens.balances)
 
     const amm = useSelector(state => state.amm.contract)
+    const isDepositing = useSelector(state => state.amm.depositing.isDepositing)
+  const isSuccess = useSelector(state => state.amm.depositing.isSuccess)
+  const transactionHash = useSelector(state => state.amm.depositing.transactionHash)
+
+    const dispatch = useDispatch()
 
     const amountHandler = async (e) => {
         if (e.target.id === 'token1') {
@@ -51,7 +60,23 @@ const Deposit = () => {
     const depositHandler = async (e) => {
         e.preventDefault()
 
-        console.log("deposit handler...")
+        setShowAlert(false)
+
+        const _token1Amount = ethers.utils.parseUnits(token1Amount, 'ether')
+        const _token2Amount = ethers.utils.parseUnits(token2Amount, 'ether')
+
+        await addLiquidity(
+            provider, 
+            amm, 
+            tokens, 
+            [_token1Amount, _token2Amount], 
+            dispatch
+        )
+
+        await loadBalances(amm,tokens, account, dispatch)
+    
+        setShowAlert(true)
+
     }
 
     return (
@@ -100,7 +125,11 @@ const Deposit = () => {
             </Row>
 
             <Row className='my-3'>              
-              <Button type='submit'>Deposit</Button>     
+              {isDepositing ? (
+                <Spinner animation="border" style={{ display: 'block', margin: '0 auto' }} />
+              ) : (
+                <Button type='submit'>Deposit</Button>
+              )}      
             </Row>
 
           </Form>
@@ -115,7 +144,30 @@ const Deposit = () => {
         )}
       </Card>
 
-     
+        {isDepositing ? (
+        <Alert
+          message={'Deposit Pending...'}
+          transactionHash={null}
+          variant={'info'}
+          setShowAlert={setShowAlert}
+        />
+      ) : isSuccess && showAlert ? (
+        <Alert
+          message={'Deposit Successful'}
+          transactionHash={transactionHash}
+          variant={'success'}
+          setShowAlert={setShowAlert}
+        />
+      ) : !isSuccess && showAlert ? (
+        <Alert
+          message={'Deposit Failed'}
+          transactionHash={null}
+          variant={'danger'}
+          setShowAlert={setShowAlert}
+        />
+      ) : (
+        <></>
+      )}
 
     </div>
     );
