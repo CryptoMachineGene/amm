@@ -28,52 +28,36 @@ const Withdraw = () => {
 
             <Row>
               <Form.Text className='text-end my-2' muted>
-                  Balance: {balances[0]}
+                  Shares: {0}
               </Form.Text>
               <InputGroup>
                 <Form.Control
                   type="number"
-                  placeholder="0.0"
+                  placeholder="0"
                   min="0.0"
                   step="any" 
-                  id="token1"
-                  onChange={(e) => amountHandler(e)}
-                  value={token1Amount === 0 ? "" : token1Amount}                
+                  id="shares"                                  
                 />
                 <InputGroup.Text style={{ width: "100px" }} className="justify-content-center">
-                  { symbols && symbols[0] }
+                  Shares
                 </InputGroup.Text>
               </InputGroup>
             </Row>
 
-            <Row className='my-3'>
-              <Form.Text className='text-end my-2' muted>
-                  Balance: {balances[1]}
-              </Form.Text>
-              <InputGroup>
-                <Form.Control
-                  type="number"
-                  placeholder="0.0"                  
-                  step="any" 
-                  id="token2"
-                  onChange={(e) => amountHandler(e)} 
-                  value={token2Amount === 0 ? "" : token2Amount}
-                />
-                <InputGroup.Text style={{ width: "100px" }} className="justify-content-center">
-                  { symbols && symbols[1] }
-                </InputGroup.Text>
-              </InputGroup>
+            <Row className='my-3'>           
+                <Button type='submit'>Withdraw</Button>                    
             </Row>
 
-            <Row className='my-3'>              
-              {isDepositing ? (
-                <Spinner animation="border" style={{ display: 'block', margin: '0 auto' }} />
-              ) : (
-                <Button type='submit'>Deposit</Button>
-              )}      
-            </Row>
+            <hr />
 
+            <Row>
+              <p><strong>DAPP Balance:</strong> 0</p>
+              <p><strong>USD Balance:</strong> 0</p>
+            </Row>
+            
           </Form>
+
+          
 
         ) : (
           <p
