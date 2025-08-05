@@ -10,14 +10,50 @@ import { ethers } from 'ethers'
 
 import Alert from './Alert'
 
+import {
+  removeLiquidity,
+  loadBalances  
+} from '../store/interactions'
+
 const Withdraw = () => {
+    const [amount, setAmount] = useState(0)
+    const [showAlert, setShowAlert] = useState(false)
+
     const provider = useSelector(state => state.provider.connection)
     const account = useSelector(state => state.provider.account)
+
+    const shares = useSelector(state => state.amm.shares)
+
+    const tokens = useSelector(state => state.tokens.contracts)
+    const balances = useSelector(state => state.tokens.balances)
+
+    const amm = useSelector(state => state.amm.contract)
+    const isWithdrawing = useSelector(state => state.amm.withdrawing.isWithdrawing)
+    const isSuccess = useSelector(state => state.amm.withdrawing.isSuccess)
+    const transactionHash = useSelector(state => state.amm.withdrawing.transactionHash)
+    
+    const dispatch = useDispatch()
 
     const withdrawHandler = async (e) => {
         e.preventDefault()
 
-        console.log("withdrawHandler...")
+        // console.log("withdrawHandler...", amount)
+        // Remove Liquidity Function
+        setShowAlert(false)
+
+        const _shares = ethers.utils.parseUnits(amount.toString(), 'ether')
+
+        await removeLiquidity(
+          provider,
+          amm,
+          _shares,
+          dispatch
+        )
+
+        await loadBalances(amm, tokens, account, dispatch)
+
+        setShowAlert(true)
+        setAmount(0)
     }
 
     return (
@@ -28,7 +64,7 @@ const Withdraw = () => {
 
             <Row>
               <Form.Text className='text-end my-2' muted>
-                  Shares: {0}
+                  Shares: {shares}
               </Form.Text>
               <InputGroup>
                 <Form.Control
@@ -36,7 +72,9 @@ const Withdraw = () => {
                   placeholder="0"
                   min="0.0"
                   step="any" 
-                  id="shares"                                  
+                  id="shares"
+                  value={amount === 0 ? "" : amount}
+                  onChange={(e) => setAmount(e.target.value)}                                  
                 />
                 <InputGroup.Text style={{ width: "100px" }} className="justify-content-center">
                   Shares
@@ -45,19 +83,21 @@ const Withdraw = () => {
             </Row>
 
             <Row className='my-3'>           
-                <Button type='submit'>Withdraw</Button>                    
+                {isWithdrawing ? (
+                <Spinner animation="border" style={{ display: 'block', margin: '0 auto' }} />
+              ) : (
+                <Button type='submit'>Withdraw</Button>
+              )}                    
             </Row>
 
             <hr />
 
             <Row>
-              <p><strong>DAPP Balance:</strong> 0</p>
-              <p><strong>USD Balance:</strong> 0</p>
+              <p><strong>DAPP Balance:</strong> {balances[0]}</p>
+              <p><strong>USD Balance:</strong> {balances[1]}</p>
             </Row>
-            
-          </Form>
 
-          
+          </Form>          
 
         ) : (
           <p
@@ -68,6 +108,31 @@ const Withdraw = () => {
           </p>
         )}
       </Card>        
+
+      {isWithdrawing ? (
+        <Alert
+          message={'Withdraw Pending...'}
+          transactionHash={null}
+          variant={'info'}
+          setShowAlert={setShowAlert}
+        />
+      ) : isSuccess && showAlert ? (
+        <Alert
+          message={'Withdraw Successful'}
+          transactionHash={transactionHash}
+          variant={'success'}
+          setShowAlert={setShowAlert}
+        />
+      ) : !isSuccess && showAlert ? (
+        <Alert
+          message={'Withdraw Failed'}
+          transactionHash={null}
+          variant={'danger'}
+          setShowAlert={setShowAlert}
+        />
+      ) : (
+        <></>
+      )}
 
     </div>
     );
