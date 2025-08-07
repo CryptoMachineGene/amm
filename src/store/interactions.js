@@ -115,6 +115,7 @@ export const addLiquidity = async (provider, amm, tokens, amounts, dispatch) => 
 
 // ------------------------------------------------------------------------------
 // REMOVE LIQUDITY
+
 export const removeLiquidity = async (provider, amm, shares, dispatch) => {
   try {
     dispatch(withdrawRequest())
@@ -130,8 +131,6 @@ export const removeLiquidity = async (provider, amm, shares, dispatch) => {
   }
 }
 
-// ------------------------------------------------------------------------------
-// SWAP
 
 export const swap = async (provider, amm, token, symbol, amount, dispatch) => {
   try {
@@ -171,6 +170,6 @@ export const loadAllSwaps = async (provider, amm, dispatch) => {
   const swaps = swapStream.map(event => {
     return { hash: event.transactionHash, args: event.args }
   })
-
+    
   dispatch(swapsLoaded(swaps))
 }
