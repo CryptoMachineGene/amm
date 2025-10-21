@@ -1,13 +1,36 @@
-# AMM Tutorial — Full-Stack DEX with Solidity, Hardhat, and React
+# AMM — Full-Stack DEX Tutorial with Solidity, Hardhat & React
 
+![Status](https://img.shields.io/badge/Status-Active-success)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
-![Hardhat](https://img.shields.io/badge/Framework-Hardhat-yellow)
-![Solidity](https://img.shields.io/badge/Language-Solidity-blue)
-![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react)
-![Redux](https://img.shields.io/badge/State-Redux-purple?logo=redux)
+![Framework](https://img.shields.io/badge/Framework-Hardhat-yellow)
+![Language](https://img.shields.io/badge/Language-Solidity-blue)
+![Frontend](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react)
+![State](https://img.shields.io/badge/State-Redux-purple?logo=redux)
 
+🧩 **Project Overview**  
+A complete educational DEX stack demonstrating core decentralized finance principles.  
+This Automated Market Maker (AMM) implements the Uniswap v1 constant-product model (`x × y = k`)  
+with ERC-20 token pairs, liquidity provisioning, and on-chain price discovery.  
 
-This is a full-stack educational project that demonstrates how to build a basic **Automated Market Maker (AMM)** like Uniswap v1. You'll learn how to create a token swap DApp using Solidity, Hardhat, Ethers.js, React, Redux Toolkit, and MetaMask.
+It includes a full-stack workflow using **Solidity**, **Hardhat**, and **Ethers.js** on the backend —  
+paired with a **React + Redux** frontend for live swap and liquidity management.  
+Designed for clarity, modularity, and hands-on blockchain developer training.
+
+A minimalist **Automated Market Maker (AMM)** implementation modeled after Uniswap v1 — built end-to-end with **Solidity**, **Hardhat**, **Ethers.js**, and a **React + Redux** frontend.  
+This repository demonstrates how decentralized liquidity pools, swaps, and LP share mechanics work under the hood, complete with a deployable test environment and modular scripts for both backend and UI layers.
+
+---
+
+### ⚙️ Features at a Glance
+- **Constant product AMM (`x × y = k`)** — live pricing & liquidity mechanics  
+- **ERC-20 pair (DAPP + USD)** — full swap, deposit, and withdrawal flows  
+- **Hardhat testing + deploy scripts** — local & Sepolia-ready  
+- **React + Redux frontend** — wallet connection, balance tracking, live charts  
+- **Read-only analytics script (`poolInfo.ts`)** — fetches reserves and fees without a wallet  
+
+---
+
+> 🧩 *Educational project designed for full-stack blockchain dev training. Built to be cloned, extended, or integrated into larger DeFi prototypes.*
 
 ---
 
@@ -20,8 +43,6 @@ This is a full-stack educational project that demonstrates how to build a basic 
 - How to manage blockchain state using Redux
 
 ---
-
-## Features
 
 ### Smart Contracts
 - ERC-20 token pair (DAPP + USD)
@@ -172,5 +193,12 @@ MIT — use freely, fork, or build on top.
 🙏 Acknowledgments:
 Based on tutorials from Dapp University, with added full-stack integration and improvements.
 
+---
 
+---
+
+### 🔍 Technologies & Topics
+`#solidity` `#hardhat` `#defi` `#amm` `#dex`  
+`#ethereum` `#react` `#redux` `#vite` `#ethersjs`  
+`#typescript` `#web3` `#fullstack` `#tutorial` `#education`
 
