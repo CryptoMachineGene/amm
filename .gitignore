@@ -1,11 +1,15 @@
+# Node + environment
 node_modules
 .env
+.env.*
+!.env.example
+
+# Coverage + build output
 coverage
 coverage.json
 typechain
 typechain-types
 
-#Hardhat files
+# Hardhat generated files
 cache
 artifacts
-
