@@ -29,6 +29,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pool:info": "tsx scripts/poolInfo.ts",
+    "deploy:local:tokens": "hardhat run scripts/deployTokens.ts --network localhost",
+    "deploy:local:amm": "hardhat run scripts/deployAmm.ts --network localhost",
+    "deploy:local": "npm run deploy:local:tokens && npm run deploy:local:amm",
     "deploy:sepolia:tokens": "hardhat run scripts/deployTokens.ts --network sepolia",
     "deploy:sepolia:amm": "hardhat run scripts/deployAmm.ts --network sepolia",
     "deploy:sepolia": "npm run deploy:sepolia:tokens && npm run deploy:sepolia:amm"
@@ -55,7 +58,9 @@
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "@types/node": "^25.0.3",
     "hardhat": "^2.10.1",
+    "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
