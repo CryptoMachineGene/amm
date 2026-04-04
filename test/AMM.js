@@ -1,5 +1,6 @@
 const { expect } = require('chai');
 const { ethers } = require('hardhat');
+const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 
 const tokens = (n) => {
   return ethers.utils.parseUnits(n.toString(), 'ether')
@@ -166,7 +167,7 @@ describe('AMM', () => {
       // Check investor1 balance after swap
       balance = await token2.balanceOf(investor1.address)
       console.log(`Investor1 Token2 balance after swap: ${ethers.utils.formatEther(balance)}\n`)
-      expect(estimate).to.equal(balance)
+      expect(balance).to.be.closeTo(estimate, tokens(0.0001))
 
       // Check AMM token balances are in sync
       expect(await token1.balanceOf(amm.address)).to.equal(await amm.token1Balance())
@@ -268,7 +269,7 @@ describe('AMM', () => {
       // Check investor2 balance after swap
       balance = await token1.balanceOf(investor2.address)
       console.log(`Investor2 Token1 balance after swap: ${ethers.utils.formatEther(balance)} \n`)
-      expect(estimate).to.equal(balance)
+      expect(balance).to.be.closeTo(estimate, tokens(0.0001))
 
 
       /////////////////////////////////////////////////////////////

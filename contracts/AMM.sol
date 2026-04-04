@@ -10,8 +10,7 @@ contract AMM {
 
     uint256 public token1Balance;
     uint256 public token2Balance;
-    uint256 public K;
-
+    
     uint256 public totalShares;
     mapping(address => uint256) public shares;
     uint256 constant PRECISION = 10**18;
@@ -62,8 +61,7 @@ contract AMM {
         // Manage Pool
         token1Balance += _token1Amount;
         token2Balance += _token2Amount;
-        K = token1Balance * token2Balance;
-
+        
         // Updates shares
         totalShares += share;
         shares[msg.sender] += share;
@@ -93,8 +91,9 @@ contract AMM {
         view
         returns (uint256 token2Amount)
     {
+        uint256 k = token1Balance * token2Balance;
         uint256 token1After = token1Balance + _token1Amount;
-        uint256 token2After = K / token1After;
+        uint256 token2After = k / token1After;
         token2Amount = token2Balance - token2After;
 
         // Don't let the pool go to 0
@@ -137,8 +136,9 @@ contract AMM {
         view
         returns (uint256 token1Amount)
     {
+        uint256 k = token1Balance * token2Balance;
         uint256 token2After = token2Balance + _token2Amount;
-        uint256 token1After = K / token2After;
+        uint256 token1After = k / token2After;
         token1Amount = token1Balance - token1After;
 
         // Don't let the pool go to 0
@@ -203,8 +203,7 @@ contract AMM {
 
         token1Balance -= token1Amount;
         token2Balance -= token2Amount;
-        K = token1Balance * token2Balance;
-
+        
         token1.transfer(msg.sender, token1Amount);
         token2.transfer(msg.sender, token2Amount);
     }
