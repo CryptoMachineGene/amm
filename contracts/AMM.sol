@@ -92,7 +92,11 @@ contract AMM {
         returns (uint256 token2Amount)
     {
         uint256 k = token1Balance * token2Balance;
-        uint256 token1After = token1Balance + _token1Amount;
+        
+        uint256 fee = (_token1Amount * 3) / 1000; // 0.3%
+        uint256 amountInWithFee = _token1Amount - fee;
+
+        uint256 token1After = token1Balance + amountInWithFee;
         uint256 token2After = k / token1After;
         token2Amount = token2Balance - token2After;
 
@@ -137,7 +141,11 @@ contract AMM {
         returns (uint256 token1Amount)
     {
         uint256 k = token1Balance * token2Balance;
-        uint256 token2After = token2Balance + _token2Amount;
+        
+        uint256 fee = (_token2Amount * 3) / 1000; // 0.3%
+        uint256 amountInWithFee = _token2Amount - fee;
+
+        uint256 token2After = token1Balance + amountInWithFee;
         uint256 token1After = k / token2After;
         token1Amount = token1Balance - token1After;
 
