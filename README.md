@@ -30,6 +30,20 @@ This repository demonstrates how decentralized liquidity pools, swaps, and LP sh
 
 ---
 
+## 🚀 Improvements & Enhancements
+
+This project was extended beyond the original tutorial to better reflect real-world AMM behavior and development practices:
+
+- Removed stored invariant (`K`) and compute it dynamically during swaps to reduce redundant state
+- Implemented a 0.3% swap fee (Uniswap-style), retained in the pool to benefit liquidity providers
+- Refactored swap calculations for both token directions
+- Updated test suite to handle precision, rounding, and dynamic outputs
+- Introduced proper Git workflow (feature branching, pull requests, version tagging)
+
+These changes improve correctness, reduce state redundancy, and align the AMM more closely with production-grade DeFi protocols.
+
+---
+
 > 🧩 *Educational project designed for full-stack blockchain dev training. Built to be cloned, extended, or integrated into larger DeFi prototypes.*
 
 ---
