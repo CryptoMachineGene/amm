@@ -91,21 +91,21 @@ contract AMM {
         view
         returns (uint256 token2Amount)
     {
-        uint256 k = token1Balance * token2Balance;
+        require(_token1Amount > 0, "invalid input");
+        require(token1Balance > 0 && token2Balance > 0, "empty pool");
+
+        uint256 token2After = (token1Balance * token2Balance) / token1After;
         
         uint256 fee = (_token1Amount * 3) / 1000; // 0.3%
         uint256 amountInWithFee = _token1Amount - fee;
 
         uint256 token1After = token1Balance + amountInWithFee;
         uint256 token2After = k / token1After;
+
         token2Amount = token2Balance - token2After;
 
-        // Don't let the pool go to 0
-        if (token2Amount == token2Balance) {
-            token2Amount--;
-        }
-
-        require(token2Amount < token2Balance, "swap amount to large");
+        require(token2Amount > 0, "insufficient output");
+        require(token2Amount < token2Balance, "swap amount too large");
     }
 
     function swapToken1(uint256 _token1Amount)
@@ -145,7 +145,7 @@ contract AMM {
         uint256 fee = (_token2Amount * 3) / 1000; // 0.3%
         uint256 amountInWithFee = _token2Amount - fee;
 
-        uint256 token2After = token1Balance + amountInWithFee;
+        uint256 token2After = token2Balance + amountInWithFee;
         uint256 token1After = k / token2After;
         token1Amount = token1Balance - token1After;
 
