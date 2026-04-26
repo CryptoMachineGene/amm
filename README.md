@@ -1,4 +1,6 @@
-# AMM — Full-Stack DEX Tutorial with Solidity, Hardhat & React
+# Automated Market Maker (AMM)
+
+A simple constant product AMM built in Solidity as part of my Web3 development portfolio.
 
 ![Status](https://img.shields.io/badge/Status-Active-success)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
@@ -22,7 +24,7 @@ This repository demonstrates how decentralized liquidity pools, swaps, and LP sh
 ---
 
 ### ⚙️ Features at a Glance
-- **Constant product AMM (`x × y = k`)** — live pricing & liquidity mechanics  
+- **Constant product AMM (`x × y = k`)** — live pricing, fee-adjusted swaps, and liquidity mechanics   
 - **ERC-20 pair (DAPP + USD)** — full swap, deposit, and withdrawal flows  
 - **Hardhat testing + deploy scripts** — local & Sepolia-ready  
 - **React + Redux frontend** — wallet connection, balance tracking, live charts  
@@ -34,6 +36,7 @@ This repository demonstrates how decentralized liquidity pools, swaps, and LP sh
 
 This project was extended beyond the original tutorial to better reflect real-world AMM behavior and development practices:
 
+- Implemented symmetric swap quote functions (`calculateToken1Swap`, `calculateToken2Swap`) using constant product invariant with 0.3% fee and input/output validation
 - Removed stored invariant (`K`) and compute it dynamically during swaps to reduce redundant state
 - Implemented a 0.3% swap fee (Uniswap-style), retained in the pool to benefit liquidity providers
 - Refactored swap calculations for both token directions
