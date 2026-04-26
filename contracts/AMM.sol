@@ -91,21 +91,22 @@ contract AMM {
         view
         returns (uint256 token2Amount)
     {
-        require(_token1Amount > 0, "invalid input");
-        require(token1Balance > 0 && token2Balance > 0, "empty pool");
+        require(_token1Amount > 0, "amount must be > 0");
 
-        uint256 token2After = (token1Balance * token2Balance) / token1After;
+        uint256 k = token1Balance * token2Balance;
+        require(k > 0, "invalid reserves");       
         
         uint256 fee = (_token1Amount * 3) / 1000; // 0.3%
         uint256 amountInWithFee = _token1Amount - fee;
 
         uint256 token1After = token1Balance + amountInWithFee;
-        uint256 token2After = k / token1After;
-
-        token2Amount = token2Balance - token2After;
-
-        require(token2Amount > 0, "insufficient output");
+        
+        token2Amount = token2Balance - (k / token1After);
+ 
+        require(token2Amount > 0, "insufficient output amount");
         require(token2Amount < token2Balance, "swap amount too large");
+
+        return token2Amount;
     }
 
     function swapToken1(uint256 _token1Amount)
@@ -140,21 +141,22 @@ contract AMM {
         view
         returns (uint256 token1Amount)
     {
+        require(_token2Amount > 0, "amount must be > 0");
+
         uint256 k = token1Balance * token2Balance;
-        
+        require(k > 0, "invalid reserves");
+
         uint256 fee = (_token2Amount * 3) / 1000; // 0.3%
         uint256 amountInWithFee = _token2Amount - fee;
 
         uint256 token2After = token2Balance + amountInWithFee;
-        uint256 token1After = k / token2After;
-        token1Amount = token1Balance - token1After;
+        
+        token1Amount = token1Balance - (k / token2After);
 
-        // Don't let the pool go to 0
-        if (token1Amount == token1Balance) {
-            token1Amount--;
-        }
+        require(token1Amount > 0, "insufficient output amount");
+        require(token1Amount < token1Balance, "swap amount too large");
 
-        require(token1Amount < token1Balance, "swap amount to large");
+        return token1Amount;
     }
 
     function swapToken2(uint256 _token2Amount)
